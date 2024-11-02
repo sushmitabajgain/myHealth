@@ -1,4 +1,0 @@
-echo .venv/ >> .gitignore  # If using a virtual environment named .venv
-echo __pycache__/ >> .gitignore
-echo *.pyc >> .gitignore
-echo db.sqlite3 >> .gitignore  # If using SQLite as your database

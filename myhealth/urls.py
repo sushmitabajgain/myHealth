@@ -17,8 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from health.views import HealthTipsView  # Import your main view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('products.urls')),  # Include product app URLs
+    path('health/', include('health.urls')),  # Include health app URLs
+    path('', HealthTipsView.as_view(), name='home'),  # Set the root URL to the main view
 ]
