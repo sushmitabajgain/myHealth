@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'myshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'myshop_db',            # Your MySQL database name
+        'USER': 'myshop',          # Your MySQL username
+        'PASSWORD': '123456',     # Your MySQL password
+        'HOST': 'localhost',             # Set to 'localhost' or your DB host
+        'PORT': '3306',                  # Default MySQL port
     }
 }
 
