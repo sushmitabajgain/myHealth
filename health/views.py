@@ -25,7 +25,7 @@ from django.views import View
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import HealthMetric
-from .ml_models import predict_health_trend, detect_anomalies, get_personalized_recommendations
+from .utils import predict_health_trend, detect_anomalies, get_personalized_recommendations, generate_health_plot
 
 class HealthTipsView(View):
     def get(self, request):
@@ -50,21 +50,22 @@ def schedule_appointment(request):
 def recommendations(request):
     if request.method == "GET":
         # Fetch user health data
-        user_health_data = HealthMetric.objects.all().values()
+        user_health_data = list(HealthMetric.objects.all().values())
         
         # Predict health trends
         trend_predictions = predict_health_trend(user_health_data)
-        
         # Detect anomalies in health metrics
         anomalies = detect_anomalies(user_health_data)
-        
         # Get personalized recommendations
         personalized_recs = get_personalized_recommendations(user_health_data)
-        
+
+        health_plot = generate_health_plot(user_health_data)
+
         response_data = {
             "trend_predictions": trend_predictions,
             "anomalies": anomalies,
-            "personalized_recommendations": personalized_recs
+            "personalized_recommendations": personalized_recs,
+            "health_plot": health_plot
         }
         return JsonResponse(response_data)
     return render(request, 'health/recommendations.html')
